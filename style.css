@@ -176,6 +176,11 @@ h1 {
     
 }
 
+.subpage-header {
+    padding-left: 3rem;
+    padding-top: 3rem;
+}
+
 #main-3 {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
