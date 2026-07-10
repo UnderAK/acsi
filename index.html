@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
        <link rel="stylesheet" href="./style.css">
     </head>
-    <body>
+    <body id="homepage">
         <nav class="navigation">
             <a class="logo" href="index.html">ACSI</a>
             <ul>
@@ -17,8 +17,16 @@
         </nav>
 
         <main>
+            <div class="math-symbol-stage" data-math-symbols aria-label="Interactive math and logic symbol animation"></div>
             <section class="hero">
-                <h1 id="home-header">Driving the next generation of problem-solvers</h1>
+                <h3 id="header-desc"><i>A Schoolhouse.world Program</i></h3>
+                <h1 id="home-header">Academic Competitions Schoolhouse Initiative</h1>
+                <h2>Driving the next generation of problem-solvers</h2>
+            </section>
+
+            <section>
+                <h2 class="about-preview">Who We Are</h2>
+                <p class="preview-para"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
             </section>
 
             <section id="main-3" aria-label="ACSI highlights">
@@ -40,6 +48,8 @@
                     <a class="learn-more" href="./programs.html">Learn more</a>
                 </div>
             </section>
+            
+    
 
             <section class="stats-row" aria-label="ACSI impact stats">
                 <div class="stat-item">
@@ -59,36 +69,40 @@
             </section>
         </main>
 
-<script>
-    const brandColors = [
-        { r: 42,  g: 132, b: 238 }, 
-        { r: 53,  g: 206, b: 242 },
-        { r: 13,  g: 221, b: 139 },
-        { r: 255, g: 208, b: 0   }, 
-        { r: 245, g: 164, b: 156 }, 
-        { r: 120, g: 67,  b: 227 }  
-    ];
+        <script>
+            const brandColors = [
+                { r: 42,  g: 132, b: 238 }, 
+                { r: 53,  g: 206, b: 242 },
+                { r: 13,  g: 221, b: 139 },
+                { r: 255, g: 208, b: 0   }, 
+                { r: 245, g: 164, b: 156 }, 
+                { r: 120, g: 67,  b: 227 }  
+            ];
 
-    window.addEventListener('scroll', () => {
-        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-        if (scrollHeight <= 0) return;
+            window.addEventListener('scroll', () => {
+                const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+                if (scrollHeight <= 0) return;
+                
+                const pct = Math.min(Math.max(window.scrollY / scrollHeight, 0), 0.999);
+                
+                const totalSegments = brandColors.length - 1;
+                const segmentProgress = pct * totalSegments;
+                const index = Math.floor(segmentProgress);
+                const factor = segmentProgress - index;
+
+                const start = brandColors[index];
+                const end = brandColors[index + 1];
+
+                const r = Math.round(start.r + factor * (end.r - start.r));
+                const g = Math.round(start.g + factor * (end.g - start.g));
+                const b = Math.round(start.b + factor * (end.b - start.b));
+
+                document.body.style.setProperty('--scroll-dot-color', `rgba(${r}, ${g}, ${b}, 0.35)`);
+            });
+        </script>
+
+        <script src="./math-symbol-animation.js"></script>
+
         
-        const pct = Math.min(Math.max(window.scrollY / scrollHeight, 0), 0.999);
-        
-        const totalSegments = brandColors.length - 1;
-        const segmentProgress = pct * totalSegments;
-        const index = Math.floor(segmentProgress);
-        const factor = segmentProgress - index;
-
-        const start = brandColors[index];
-        const end = brandColors[index + 1];
-
-        const r = Math.round(start.r + factor * (end.r - start.r));
-        const g = Math.round(start.g + factor * (end.g - start.g));
-        const b = Math.round(start.b + factor * (end.b - start.b));
-
-        document.body.style.setProperty('--scroll-dot-color', `rgba(${r}, ${g}, ${b}, 0.35)`);
-    });
-</script>
     </body>
 </html>
