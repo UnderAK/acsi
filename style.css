@@ -21,27 +21,7 @@ body {
     font-family: 'Roboto', sans-serif; 
     overflow-x: hidden;
     isolation: isolate;
-
-    --scroll-dot-color: rgba(42, 132, 238, 0.35);
 } 
-
-#homepage::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    
-    background-image: radial-gradient(var(--scroll-dot-color) 1.5px, transparent 1.5px);
-    background-size: 24px 24px;
-    
-    -webkit-mask-image: radial-gradient(circle at 90% 10%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 100%);
-    mask-image: radial-gradient(circle at 90% 10%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 95%);
-    
-    z-index: -1;
-    pointer-events: none;
-}
 
 .navigation { 
     display: flex; 
@@ -58,18 +38,10 @@ main {
     width: 100%; 
     position: relative;
     z-index: 10;
+    background:
+        radial-gradient(ellipse at 18% 18%, rgba(42, 132, 238, 0.22) 0%, rgba(42, 132, 238, 0.12) 22%, rgba(42, 132, 238, 0.045) 48%, transparent 76%),
+        linear-gradient(180deg, rgba(53, 206, 242, 0.055) 0%, rgba(53, 206, 242, 0.035) 48%, rgba(255, 255, 255, 0) 74%);
 }
-
-@keyframes moveDotGrid {
-    0% {
-        transform: translate(0, 0);
-    }
-    100% {
-        transform: translate(-80px, 40px);
-    }
-}
-
-
 
 .column {
     flex: 1;
@@ -155,11 +127,147 @@ ul {
 
 
 .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     width: 100%;
+    min-height: 44rem;
     padding: 13rem 0 0 5.9rem;
+    background:
+        radial-gradient(ellipse at 18% 48%, rgba(42, 132, 238, 0.2) 0%, rgba(42, 132, 238, 0.12) 28%, rgba(42, 132, 238, 0.04) 54%, transparent 76%),
+        linear-gradient(90deg, rgba(42, 132, 238, 0.13) 0%, rgba(53, 206, 242, 0.06) 36%, rgba(255, 255, 255, 0) 72%);
+}
+
+.math-symbol-stage {
+    position: absolute;
+    z-index: 1;
+    right: 3.8rem;
+    top: 7rem;
+    width: min(47rem, 44vw);
+    height: min(33rem, 70%);
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 500ms ease;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 92%, transparent 100%), linear-gradient(180deg, transparent 0%, #000 12%, #000 100%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 92%, transparent 100%), linear-gradient(180deg, transparent 0%, #000 12%, #000 100%);
+    mask-composite: intersect;
+}
+
+.math-symbol-stage.is-ready {
+    opacity: 1;
+}
+
+.math-symbol {
+    --symbol-glow: 0.35;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: rgba(42, 132, 238, 0.72);
+    text-shadow:
+        0 0 calc(var(--symbol-glow) * 1rem) rgba(53, 206, 242, 0.34),
+        0 0.35rem 1.1rem rgba(23, 25, 35, 0.08);
+    font: inherit;
+    font-weight: 900;
+    line-height: 1;
+    cursor: default;
+    pointer-events: auto;
+    opacity: 0.72;
+    will-change: transform;
+}
+
+.math-symbol--shape,
+.math-symbol--delta {
+    color: rgba(42, 132, 238, 0.72);
+}
+
+.math-symbol--logic {
+    color: rgba(42, 132, 238, 0.82);
+}
+
+.math-symbol--equation {
+    color: rgba(23, 25, 35, 0.64);
+    font-size: 0.85rem;
+}
+
+.math-symbol--spiral,
+.math-symbol--infinity {
+    color: rgba(120, 67, 227, 0.62);
+}
+
+.math-symbol.is-settled {
+    opacity: 0.82;
+}
+
+.math-symbol.is-hovered,
+.math-symbol:focus-visible {
+    z-index: 5;
+    outline: none;
+    color: #2a84ee;
+    opacity: 1;
+    text-shadow:
+        0 0 1.2rem rgba(53, 206, 242, 0.58),
+        0 0.55rem 1.4rem rgba(23, 25, 35, 0.12);
+}
+
+.math-tooltip {
+    position: absolute;
+    z-index: 6;
+    max-width: 12.5rem;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid rgba(42, 132, 238, 0.18);
+    border-radius: 0.55rem;
+    background: rgba(255, 255, 255, 0.88);
+    color: #171923;
+    box-shadow: 0 0.7rem 1.8rem rgba(23, 25, 35, 0.12);
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.35;
+    opacity: 0;
+    pointer-events: none;
+    backdrop-filter: blur(12px);
+    transition: opacity 140ms ease;
+}
+
+.math-tooltip.is-visible {
+    opacity: 1;
+}
+
+.math-ripple {
+    position: absolute;
+    z-index: 4;
+    width: 0.5rem;
+    height: 0.5rem;
+    border: 1px solid rgba(42, 132, 238, 0.42);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    animation: mathRipple 720ms ease-out forwards;
+}
+
+@keyframes mathRipple {
+    from {
+        opacity: 0.55;
+        width: 0.5rem;
+        height: 0.5rem;
+    }
+
+    to {
+        opacity: 0;
+        width: 5.5rem;
+        height: 5.5rem;
+    }
 }
 
 #home-header {
+    position: relative;
+    z-index: 2;
     max-width: 39rem;
     margin: 0;
     font-size: clamp(2.4rem, 4vw, 3.85rem);
@@ -384,6 +492,17 @@ h1 {
 
     .hero {
         padding: 8rem 1.5rem 0;
+        min-height: 34rem;
+    }
+
+    .math-symbol-stage {
+        left: auto;
+        right: 0.75rem;
+        top: 8rem;
+        bottom: auto;
+        width: min(30rem, 52vw);
+        height: 18rem;
+        opacity: 0.62;
     }
 
     #main-3 {
@@ -421,5 +540,25 @@ h1 {
 
     ul {
         justify-content: flex-start;
+    }
+
+    .math-symbol-stage {
+        top: 13.5rem;
+        right: 0.75rem;
+        width: 46vw;
+        height: 11rem;
+        opacity: 0.34;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .math-symbol,
+    .feature-card,
+    .learn-more {
+        transition: none;
+    }
+
+    .math-ripple {
+        display: none;
     }
 }

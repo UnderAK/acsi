@@ -18,6 +18,7 @@
 
         <main>
             <section class="hero">
+                <div class="math-symbol-stage" data-math-symbols aria-label="Interactive math and logic symbol animation"></div>
                 <h1 id="home-header">Driving the next generation of problem-solvers</h1>
             </section>
 
@@ -59,37 +60,6 @@
             </section>
         </main>
 
-<script>
-    // Exact hex arrays mapped from your uploaded brand guideline color asset
-    const brandColors = [
-        { r: 42,  g: 132, b: 238 }, // #2a84ee (Blue)
-        { r: 53,  g: 206, b: 242 }, // #35cef2 (Light Cyan)
-        { r: 13,  g: 221, b: 139 }, // #0ddd8b (Teal Green)
-        { r: 255, g: 208, b: 0   }, // #ffd000 (Yellow)
-        { r: 245, g: 164, b: 156 }, // #f5a49c (Pink)
-        { r: 120, g: 67,  b: 227 }  // #7843e3 (Purple)
-    ];
-
-    window.addEventListener('scroll', () => {
-        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-        if (scrollHeight <= 0) return;
-        
-        const pct = Math.min(Math.max(window.scrollY / scrollHeight, 0), 0.999);
-        
-        const totalSegments = brandColors.length - 1;
-        const segmentProgress = pct * totalSegments;
-        const index = Math.floor(segmentProgress);
-        const factor = segmentProgress - index;
-
-        const start = brandColors[index];
-        const end = brandColors[index + 1];
-
-        const r = Math.round(start.r + factor * (end.r - start.r));
-        const g = Math.round(start.g + factor * (end.g - start.g));
-        const b = Math.round(start.b + factor * (end.b - start.b));
-
-        document.body.style.setProperty('--scroll-dot-color', `rgba(${r}, ${g}, ${b}, 0.35)`);
-    });
-</script>
+        <script type="module" src="./math-symbol-animation.js"></script>
     </body>
 </html>
