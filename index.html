@@ -18,6 +18,7 @@
 
         <main>
             <section class="hero">
+                <div class="hero-dotfield" aria-hidden="true"></div>
                 <h1 id="home-header">Driving the next generation of problem-solvers</h1>
             </section>
 
@@ -60,36 +61,99 @@
         </main>
 
 <script>
-    // Exact hex arrays mapped from your uploaded brand guideline color asset
-    const brandColors = [
-        { r: 42,  g: 132, b: 238 }, // #2a84ee (Blue)
-        { r: 53,  g: 206, b: 242 }, // #35cef2 (Light Cyan)
-        { r: 13,  g: 221, b: 139 }, // #0ddd8b (Teal Green)
-        { r: 255, g: 208, b: 0   }, // #ffd000 (Yellow)
-        { r: 245, g: 164, b: 156 }, // #f5a49c (Pink)
-        { r: 120, g: 67,  b: 227 }  // #7843e3 (Purple)
-    ];
+    const dotField = document.querySelector('.hero-dotfield');
 
-    window.addEventListener('scroll', () => {
-        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-        if (scrollHeight <= 0) return;
-        
-        const pct = Math.min(Math.max(window.scrollY / scrollHeight, 0), 0.999);
-        
-        const totalSegments = brandColors.length - 1;
-        const segmentProgress = pct * totalSegments;
-        const index = Math.floor(segmentProgress);
-        const factor = segmentProgress - index;
+    if (dotField) {
+        const rows = 12;
+        const dotsPerRow = 16;
 
-        const start = brandColors[index];
-        const end = brandColors[index + 1];
+        for (let rowIndex = 0; rowIndex < rows; rowIndex += 1) {
+            const row = document.createElement('div');
+            row.className = 'dot-row';
+            row.style.setProperty('--row', rowIndex);
 
-        const r = Math.round(start.r + factor * (end.r - start.r));
-        const g = Math.round(start.g + factor * (end.g - start.g));
-        const b = Math.round(start.b + factor * (end.b - start.b));
+            for (let dotIndex = 0; dotIndex < dotsPerRow; dotIndex += 1) {
+                const dot = document.createElement('span');
+                dot.className = 'dot';
+                dot.style.setProperty('--dot', dotIndex);
+                row.appendChild(dot);
+            }
 
-        document.body.style.setProperty('--scroll-dot-color', `rgba(${r}, ${g}, ${b}, 0.35)`);
-    });
+            dotField.appendChild(row);
+        }
+    }
+
+    const hero = document.querySelector('.hero');
+    const dots = [...document.querySelectorAll('.dot')];
+    let mouseFrame = null;
+    let previousMouse = null;
+    let latestMouse = null;
+
+    const setHeroMouse = (event) => {
+        latestMouse = {
+            x: event.clientX,
+            y: event.clientY
+        };
+
+        if (mouseFrame) return;
+
+        mouseFrame = requestAnimationFrame(() => {
+            if (!hero || !latestMouse) return;
+
+            const heroRect = hero.getBoundingClientRect();
+            const isInsideHero =
+                latestMouse.x >= heroRect.left &&
+                latestMouse.x <= heroRect.right &&
+                latestMouse.y >= heroRect.top &&
+                latestMouse.y <= heroRect.bottom;
+
+            if (!isInsideHero) {
+                dots.forEach((dot) => {
+                    dot.style.transform = '';
+                });
+                previousMouse = latestMouse;
+                mouseFrame = null;
+                return;
+            }
+
+            const movementX = previousMouse ? latestMouse.x - previousMouse.x : 0;
+            const movementY = previousMouse ? latestMouse.y - previousMouse.y : 0;
+            const radius = 150;
+            const maxShift = 24;
+            const shiftX = Math.max(Math.min(movementX * 1.7, maxShift), -maxShift);
+            const shiftY = Math.max(Math.min(movementY * 1.7, maxShift), -maxShift);
+
+            dots.forEach((dot) => {
+                const rect = dot.getBoundingClientRect();
+                const dotX = rect.left + rect.width / 2;
+                const dotY = rect.top + rect.height / 2;
+                const distance = Math.hypot(latestMouse.x - dotX, latestMouse.y - dotY);
+
+                if (distance > radius) {
+                    dot.style.transform = '';
+                    return;
+                }
+
+                const strength = 1 - distance / radius;
+                const ease = strength * strength;
+                dot.style.transform = `translate(${shiftX * ease}px, ${shiftY * ease}px) scale(${1 + ease * 0.45})`;
+            });
+
+            previousMouse = latestMouse;
+            mouseFrame = null;
+        });
+    };
+
+    window.addEventListener('mousemove', setHeroMouse);
+
+    if (hero) {
+        hero.addEventListener('mouseleave', () => {
+            dots.forEach((dot) => {
+                dot.style.transform = '';
+            });
+            previousMouse = null;
+        });
+    }
 </script>
     </body>
 </html>
