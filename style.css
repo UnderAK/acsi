@@ -22,9 +22,8 @@ body {
     overflow-x: hidden;
     isolation: isolate;
     background:
-        radial-gradient(ellipse at 18% 48%, rgba(42, 132, 238, 0.2) 0%, rgba(42, 132, 238, 0.12) 28%, rgba(42, 132, 238, 0.04) 54%, transparent 76%),
-        linear-gradient(90deg, rgba(42, 132, 238, 0.13) 0%, rgba(53, 206, 242, 0.06) 36%, rgba(255, 255, 255, 0) 72%);
-} 
+        radial-gradient(ellipse at 18% 30%, rgba(42, 132, 238, 0.2) 0%, rgba(42, 132, 238, 0.12) 12%, rgba(42, 132, 238, 0.04) 20%, transparent 30%)} 
+ 
 
 .navigation { 
     display: flex; 
