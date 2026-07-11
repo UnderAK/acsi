@@ -607,10 +607,6 @@ body::before {
   background-size: 24px 24px;
   -webkit-mask-image: radial-gradient(circle at 90% 10%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 85%);
   mask-image: radial-gradient(circle at 90% 10%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 85%);
-  
-  /* Change this number to adjust the layering */
   z-index: 1; 
-  
-  /* This prevents the dots from blocking mouse clicks on your text/links */
   pointer-events: none; 
 }
