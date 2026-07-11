@@ -303,18 +303,6 @@ ul {
     letter-spacing: 0;
 }
 
-#header-desc {
-    margin-top: 0;
-    position: relative;
-    z-index: 2;
-    max-width: 39rem;
-    margin: 0;
-    font-size: clamp(1.2rem, 2vw, 1.925rem);
-    font-weight: 400;
-    line-height: 1.22;
-    letter-spacing: 0;
-}
-
 h1 {
     font-weight: 900;
     font-size: clamp(2.4rem, 4vw, 3.85rem);
