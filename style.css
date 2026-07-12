@@ -603,7 +603,7 @@ body::before {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-image: radial-gradient(var(--scroll-dot-color) 1.5px, transparent 1.5px);
+  background-image: radial-gradient(var(--scroll-dot-color, rgba(42, 132, 238, 0.35)) 1.5px, transparent 1.5px);
   background-size: 24px 24px;
   -webkit-mask-image: radial-gradient(circle at 90% 10%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 85%);
   mask-image: radial-gradient(circle at 90% 10%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 85%);

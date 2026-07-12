@@ -78,11 +78,11 @@
                 { r: 120, g: 67,  b: 227 }  
             ];
 
-            window.addEventListener('scroll', () => {
+            const updateScrollDotColor = () => {
                 const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-                if (scrollHeight <= 0) return;
-                
-                const pct = Math.min(Math.max(window.scrollY / scrollHeight, 0), 0.999);
+                const pct = scrollHeight > 0
+                    ? Math.min(Math.max(window.scrollY / scrollHeight, 0), 0.999)
+                    : 0;
                 
                 const totalSegments = brandColors.length - 1;
                 const segmentProgress = pct * totalSegments;
@@ -97,7 +97,10 @@
                 const b = Math.round(start.b + factor * (end.b - start.b));
 
                 document.body.style.setProperty('--scroll-dot-color', `rgba(${r}, ${g}, ${b}, 0.35)`);
-            });
+            };
+
+            updateScrollDotColor();
+            window.addEventListener('scroll', updateScrollDotColor);
         </script>
 
         <script src="./math-symbol-animation.js"></script>
