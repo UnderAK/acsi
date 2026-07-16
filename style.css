@@ -165,131 +165,53 @@ ul {
     
 }
 
-.math-symbol-stage {
+.hero-copy {
+    position: relative;
+    z-index: 2;
+    max-width: 42rem;
+}
+
+@media (min-width: 521px) and (max-width: 920px) {
+    .hero-copy {
+        max-width: calc(100% - 18.5rem);
+    }
+}
+
+
+.hero-visual {
     position: absolute;
     z-index: 2;
-    right: 3.8rem;
-    top: 7rem;
-    width: min(47rem, 44vw);
-    height: min(33rem, 70%);
-    overflow: hidden;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 500ms ease;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 92%, transparent 100%), linear-gradient(180deg, transparent 0%, #000 12%, #000 100%);
-    -webkit-mask-composite: source-in;
-    mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 92%, transparent 100%), linear-gradient(180deg, transparent 0%, #000 12%, #000 100%);
-    mask-composite: intersect;
-}
-
-.math-symbol-stage.is-ready {
-    opacity: 1;
-}
-
-.math-symbol {
-    --symbol-glow: 0.35;
-    position: absolute;
-    left: 0;
-    top: 0;
+    right: clamp(2rem, 8vw, 7rem);
+    top: 7.25rem;
     display: grid;
     place-items: center;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    color: rgba(42, 132, 238, 0.72);
-    text-shadow:
-        0 0 calc(var(--symbol-glow) * 1rem) rgba(53, 206, 242, 0.34),
-        0 0.35rem 1.1rem rgba(23, 25, 35, 0.08);
-    font: inherit;
-    font-weight: 900;
-    line-height: 1;
-    cursor: default;
-    pointer-events: auto;
-    opacity: 0.72;
-    will-change: transform;
-}
-
-.math-symbol--shape,
-.math-symbol--delta {
-    color: rgba(42, 132, 238, 0.72);
-}
-
-.math-symbol--logic {
-    color: rgba(42, 132, 238, 0.82);
-}
-
-.math-symbol--equation {
-    color: rgba(23, 25, 35, 0.64);
-    font-size: 0.85rem;
-}
-
-.math-symbol--spiral,
-.math-symbol--infinity {
-    color: rgba(120, 67, 227, 0.62);
-}
-
-.math-symbol.is-settled {
-    opacity: 0.82;
-}
-
-.math-symbol.is-hovered,
-.math-symbol:focus-visible {
-    z-index: 5;
-    outline: none;
-    color: #2a84ee;
-    opacity: 1;
-    text-shadow:
-        0 0 1.2rem rgba(53, 206, 242, 0.58),
-        0 0.55rem 1.4rem rgba(23, 25, 35, 0.12);
-}
-
-.math-tooltip {
-    position: absolute;
-    z-index: 6;
-    max-width: 12.5rem;
-    padding: 0.55rem 0.7rem;
-    border: 1px solid rgba(42, 132, 238, 0.18);
-    border-radius: 0.55rem;
-    background: rgba(255, 255, 255, 0.88);
-    color: #171923;
-    box-shadow: 0 0.7rem 1.8rem rgba(23, 25, 35, 0.12);
-    font-size: 0.78rem;
-    font-weight: 700;
-    line-height: 1.35;
-    opacity: 0;
-    pointer-events: none;
-    backdrop-filter: blur(12px);
-    transition: opacity 140ms ease;
-}
-
-.math-tooltip.is-visible {
-    opacity: 1;
-}
-
-.math-ripple {
-    position: absolute;
-    z-index: 4;
-    width: 0.5rem;
-    height: 0.5rem;
-    border: 1px solid rgba(42, 132, 238, 0.42);
+    width: min(26.5rem, 32vw);
+    aspect-ratio: 1;
+    margin: 0;
     border-radius: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    animation: mathRipple 720ms ease-out forwards;
+    background:
+        radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.58) 44%, rgba(255, 255, 255, 0.16) 72%, transparent 73%),
+        linear-gradient(135deg, rgba(42, 132, 238, 0.12), rgba(53, 206, 242, 0.08));
+    box-shadow:
+        0 1.7rem 4rem rgba(42, 132, 238, 0.18),
+        inset 0 0 0 1px rgba(42, 132, 238, 0.1);
 }
 
-@keyframes mathRipple {
-    from {
-        opacity: 0.55;
-        width: 0.5rem;
-        height: 0.5rem;
-    }
+.hero-visual::before {
+    content: "";
+    position: absolute;
+    inset: 11%;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: inset 0 0 0 1px rgba(42, 132, 238, 0.08);
+}
 
-    to {
-        opacity: 0;
-        width: 5.5rem;
-        height: 5.5rem;
-    }
+.hero-visual img {
+    position: relative;
+    z-index: 1;
+    width: 70%;
+    height: auto;
+    filter: drop-shadow(0 1.2rem 1.6rem rgba(23, 25, 35, 0.12));
 }
 
 #home-header {
@@ -526,14 +448,14 @@ h1 {
         min-height: 34rem;
     }
 
-    .math-symbol-stage {
-        left: auto;
-        right: 0.75rem;
-        top: 8rem;
-        bottom: auto;
-        width: min(30rem, 52vw);
-        height: 18rem;
-        opacity: 0.62;
+    .hero-visual {
+        right: 1.5rem;
+        top: 10rem;
+        width: min(16.25rem, 36vw);
+    }
+
+    .hero-visual img {
+        width: 68%;
     }
 
     .about-section {
@@ -584,24 +506,26 @@ h1 {
         justify-content: flex-start;
     }
 
-    .math-symbol-stage {
-        top: 13.5rem;
-        right: 0.75rem;
-        width: 46vw;
-        height: 11rem;
-        opacity: 0.34;
+    .hero {
+        min-height: 38rem;
+    }
+
+    .hero-copy {
+        max-width: 100%;
+    }
+
+    .hero-visual {
+        top: 23.5rem;
+        right: 50%;
+        width: min(14.25rem, 70vw);
+        transform: translateX(50%);
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .math-symbol,
     .feature-card,
     .learn-more {
         transition: none;
-    }
-
-    .math-ripple {
-        display: none;
     }
 }
 
