@@ -136,7 +136,7 @@ li a:hover::after {
 }
 
 .logo {
-    color: #2e74bd;
+    color: #0279f8;
     font-size: 2.7rem;
     font-weight: 900;
     line-height: 1;
@@ -185,16 +185,77 @@ ul {
     top: 7.25rem;
     display: grid;
     place-items: center;
-    width: min(26.5rem, 32vw);
-    aspect-ratio: 1;
-    margin: 0;
-    border-radius: 50%;
-    background:
-        radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.58) 44%, rgba(255, 255, 255, 0.16) 72%, transparent 73%),
-        linear-gradient(135deg, rgba(42, 132, 238, 0.12), rgba(53, 206, 242, 0.08));
-    box-shadow:
-        0 1.7rem 4rem rgba(42, 132, 238, 0.18),
-        inset 0 0 0 1px rgba(42, 132, 238, 0.1);
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: rgba(42, 132, 238, 0.72);
+    text-shadow:
+        0 0 calc(var(--symbol-glow) * 1rem) rgba(53, 206, 242, 0.34),
+        0 0.35rem 1.1rem rgba(23, 25, 35, 0.08);
+    font: inherit;
+    font-weight: 900;
+    line-height: 1;
+    cursor: default;
+    pointer-events: auto;
+    opacity: 0.72;
+    will-change: transform;
+}
+
+.math-symbol--shape,
+.math-symbol--delta {
+    color: rgba(42, 132, 238, 0.72);
+}
+
+.math-symbol--logic {
+    color: rgba(42, 132, 238, 0.82);
+}
+
+.math-symbol--equation {
+    color: rgba(23, 25, 35, 0.64);
+    font-size: 0.85rem;
+}
+
+.math-symbol--spiral,
+.math-symbol--infinity {
+    color: rgba(42, 132, 238, 0.82);
+}
+
+.math-symbol.is-settled {
+    opacity: 0.82;
+}
+
+.math-symbol.is-hovered,
+.math-symbol:focus-visible {
+    z-index: 5;
+    outline: none;
+    color: #2a84ee;
+    opacity: 1;
+    text-shadow:
+        0 0 1.2rem rgba(53, 206, 242, 0.58),
+        0 0.55rem 1.4rem rgba(23, 25, 35, 0.12);
+}
+
+.math-tooltip {
+    position: absolute;
+    z-index: 6;
+    max-width: 12.5rem;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid rgba(42, 132, 238, 0.18);
+    border-radius: 0.55rem;
+    background: rgba(255, 255, 255, 0.88);
+    color: #171923;
+    box-shadow: 0 0.7rem 1.8rem rgba(23, 25, 35, 0.12);
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.35;
+    opacity: 0;
+    pointer-events: none;
+    backdrop-filter: blur(12px);
+    transition: opacity 140ms ease;
+}
+
+.math-tooltip.is-visible {
+    opacity: 1;
 }
 
 .hero-visual::before {
