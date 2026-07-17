@@ -387,7 +387,7 @@ h1 {
 
 .stat-item:hover .stat-circle,
 .stat-item:focus-within .stat-circle {
-    transform: translateY(-0.08rem) scale(1.006);
+    transform: translateY(-0.08rem) scale(1.2);
 }
 
 .stat-item h3 {
