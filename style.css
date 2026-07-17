@@ -357,20 +357,72 @@ h1 {
     display: grid;
     justify-items: center;
     text-align: center;
+    --stat-accent-1: #2a84ee;
+    --stat-accent-2: #35cef2;
+    --stat-accent-3: #0ddd8b;
+    --stat-ring-1: rgba(42, 132, 238, 0.34);
+    --stat-ring-2: rgba(53, 206, 242, 0.26);
+    --stat-ring-3: rgba(2, 121, 248, 0.18);
+    --stat-glow: rgba(42, 132, 238, 0.12);
+}
+
+.stat-item:nth-child(2) {
+    --stat-accent-1: #35cef2;
+    --stat-accent-2: #0ddd8b;
+    --stat-accent-3: #ffd000;
+    --stat-ring-1: rgba(53, 206, 242, 0.3);
+    --stat-ring-2: rgba(42, 132, 238, 0.22);
+    --stat-ring-3: rgba(2, 121, 248, 0.16);
+    --stat-glow: rgba(53, 206, 242, 0.1);
+}
+
+.stat-item:nth-child(3) {
+    --stat-accent-1: #ffd000;
+    --stat-accent-2: #f5a49c;
+    --stat-accent-3: #2a84ee;
+    --stat-ring-1: rgba(42, 132, 238, 0.24);
+    --stat-ring-2: rgba(53, 206, 242, 0.2);
+    --stat-ring-3: rgba(2, 121, 248, 0.26);
+    --stat-glow: rgba(42, 132, 238, 0.1);
 }
 
 .stat-circle {
+    position: relative;
+    isolation: isolate;
     display: grid;
     place-items: center;
     width: 11rem;
     height: 11rem;
     margin-bottom: 1.9rem;
-    border: 1rem solid #bce4ff;
+    border: 0.85rem solid transparent;
     border-radius: 50%;
+    background:
+        linear-gradient(#ffffff, #ffffff) padding-box,
+        conic-gradient(from 135deg, var(--stat-ring-1), var(--stat-ring-2), var(--stat-ring-3), var(--stat-ring-1)) border-box;
     color: #1f1f1f;
+    box-shadow: 0 1.2rem 2.5rem rgba(42, 132, 238, 0.1);
     font-size: 2.5rem;
     font-weight: 900;
     line-height: 1;
+    transition:
+        transform 320ms ease;
+}
+
+.stat-circle::before {
+    content: "";
+    position: absolute;
+    inset: -0.85rem;
+    z-index: -1;
+    border-radius: inherit;
+    background: radial-gradient(circle, var(--stat-glow), transparent 68%);
+    opacity: 1;
+    filter: blur(0.65rem);
+    transition: transform 320ms ease;
+}
+
+.stat-item:hover .stat-circle,
+.stat-item:focus-within .stat-circle {
+    transform: translateY(-0.08rem) scale(1.006);
 }
 
 .stat-item h3 {
