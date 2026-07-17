@@ -194,7 +194,7 @@ ul {
     position: absolute;
     inset: 11%;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0);
 }
 
 .hero-visual img {
